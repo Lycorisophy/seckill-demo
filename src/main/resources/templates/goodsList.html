@@ -17,6 +17,9 @@
     <script type="text/javascript" th:src="@{/js/common.js}"></script>
 </head>
 <body>
+<div>
+    <p th:text="' '+${user.nickname}"></p>
+</div>
 <div class="panel panel-default">
     <div class="panel-heading">秒杀商品列表</div>
     <table class="table" id="goodslist">
