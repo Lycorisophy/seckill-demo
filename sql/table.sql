@@ -1,23 +1,3 @@
-## 1.技术点
-![技术点](http://121.40.222.240/wp-content/uploads/2022/02/系统技术点-300x239.png)
-## 2.知识点
-![知识点](http://121.40.222.240/wp-content/uploads/2022/02/Java秒杀系统知识点-300x172.png)
-- 压力测试模拟真实秒杀场景
-- 平时隐藏秒杀地址，秒杀时段出现
-- 验证码分辨脚本还是真人
-- Redis和MQ异步消息队列应对大并发
-## 3.分析
-> 核心难点：高并发
-- 并发读
-- 并发写
-
-> 稳、准、快
-- 稳->高可用
-- 准->一致性
-- 快->高性能
-
-## 4.数据库设计
-```sql
 create table if not exists t_goods
 (
     id bigint auto_increment comment '商品ID，主键'
@@ -78,41 +58,4 @@ create table t_user
     last_login_date datetime      null comment '最后一次登陆时间',
     login_count     int default 0 null comment '登陆次数'
 );
-
-
-```
-### 5.功能设计
-1. 全局异常处理
-   class GlobalException extends RuntimeException
-   class GlobalExceptionHandler
-
-2. 公共返回对象
-   class RespBean 公共返回对象
-   enum RespBeanEnum 公共返回对象枚举
-
-3. 参数校验 validator
-   class ValidatorUtil
-   @interface IsMobile
-   class IsMobileValidator implements ConstraintValidator<IsMobile, String>
-   class LoginVo 接受前端登陆页面POST的数据
-
-4. Redis保存用户信息
-```java
-@Configuration
-public class RedisConfig{
-@Bean
-public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {...}
-}
-```
-class CookieUtil Cookie工具类
-class UserArgumentResolver implements HandlerMethodArgumentResolver 自定义用户参数
-class WebConfig implements WebMvcConfigurer MVC配置类
-
-### 6.页面展示
-![](http://121.40.222.240/wp-content/uploads/2022/02/uTools_1645772263884-300x105.png)
-![](http://121.40.222.240/wp-content/uploads/2022/02/uTools_1645772345077-300x138.png)
-![](http://121.40.222.240/wp-content/uploads/2022/02/uTools_1645772366635-300x127.png)
-![](http://121.40.222.240/wp-content/uploads/2022/02/uTools_1645772391073-300x129.png)
-![](http://121.40.222.240/wp-content/uploads/2022/02/uTools_1645772437155-300x52.png)
-![](http://121.40.222.240/wp-content/uploads/2022/02/uTools_1645772459977-283x300.png)
 

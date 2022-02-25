@@ -1,0 +1,8 @@
+INSERT INTO seckill.t_goods (id, goods_name, goods_title, goods_img, goods_detail, goods_price, goods_stock) VALUES (1, 'iPHONE12', 'iPHONE12', '/img/iphone12.png', 'iPHONE12 16+1T', 6299.00, 99);
+INSERT INTO seckill.t_goods (id, goods_name, goods_title, goods_img, goods_detail, goods_price, goods_stock) VALUES (2, 'iPHONE12Pro', 'iPHONE12Pro', '/img/iphone12pro.png', 'iPHONE12Pro 32+2T', 9999.00, 99);
+INSERT INTO seckill.t_goods (id, goods_name, goods_title, goods_img, goods_detail, goods_price, goods_stock) VALUES (3, 'iPHONE12ProMax', 'iPHONE12ProMax', '/img/iphone12pro.png', 'iPHONE12Pro 64+2T', 12999.00, 8);
+INSERT INTO seckill.t_goods (id, goods_name, goods_title, goods_img, goods_detail, goods_price, goods_stock) VALUES (4, 'iPHONE12Max', 'iPHONE12Max', '/img/iphone12.png', 'iPHONE12 16+1T', 7499.00, 99);
+INSERT INTO seckill.t_goods (id, goods_name, goods_title, goods_img, goods_detail, goods_price, goods_stock) VALUES (5, 'iPHONE13', 'iPHONE13', '/img/iphone12.png', 'iPHONE13', 6999.00, 10000);
+INSERT INTO seckill.t_goods (id, goods_name, goods_title, goods_img, goods_detail, goods_price, goods_stock) VALUES (6, 'iPHONE13Pro', 'iPHONE13Pro', '/img/iphone12pro.png', 'iPHONE13Pro 32+2T', 12999.00, 0);
+INSERT INTO seckill.t_goods (id, goods_name, goods_title, goods_img, goods_detail, goods_price, goods_stock) VALUES (7, 'iPHONE13ProMax', 'iPHONE13ProMax', '/img/iphone12pro.png', 'iPHONE13ProMax', 19999.00, 0);
+INSERT INTO seckill.t_goods (id, goods_name, goods_title, goods_img, goods_detail, goods_price, goods_stock) VALUES (8, 'iPHONE13Max', 'iPHONE13Max', '/img/iphone12.png', 'iPHONE13Max', 9999.00, 0);
