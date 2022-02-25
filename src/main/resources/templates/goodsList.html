@@ -18,7 +18,12 @@
 </head>
 <body>
 <div>
-    <p th:text="' '+${user.nickname}"></p>
+    <li><a th:text="' '+${user.nickname}" href="#"></a>
+        <ul>
+            <li><a href="/userOrder/toList">个人订单</a></li>
+            <li><a href="/login/toLogin">登出</a></li>
+        </ul>
+    </li>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading">秒杀商品列表</div>

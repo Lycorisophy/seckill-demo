@@ -26,7 +26,9 @@ public enum RespBeanEnum {
 
     // 秒杀模块返回对象 5005XX
     EMPTY_ERROR(500500, "库存不足"),
-    REPEAT_ERROR(500501,"重复抢购，该商品每人限购一件");
+    REPEAT_ERROR(500501,"重复抢购，该商品每人限购一件"),
+    CANCLE_ERROR(500502,"订单取消失败"),
+    PAY_ERROR(500503,"订单支付失败");
 
     /**
      * 状态码

@@ -21,5 +21,14 @@
     <sql id="Base_Column_List">
         id, user_id, goods_id, delivery_addr_id, goods_name, goods_count, goods_price, order_channel, status, create_date, pay_date
     </sql>
+    <select id="selectByUser" resultType="cn.lysoy.seckill.pojo.Order">
+        SELECT *
+        FROM t_order AS o
+        <where>
+            <if test="userId != null">
+                o.user_id = #{userId}
+            </if>
+        </where>
+    </select>
 
 </mapper>

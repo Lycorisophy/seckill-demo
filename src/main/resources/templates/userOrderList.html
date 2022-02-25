@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>订单列表</title>
+    <!-- jquery -->
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <!-- bootstrap -->
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/bootstrap/css/bootstrap.min.css}"/>
+    <script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.min.js}">
+    </script>
+    <!-- layer -->
+    <script type="text/javascript" th:src="@{/layer/layer.js}"></script>
+    <!-- common.js -->
+    <script type="text/javascript" th:src="@{/js/common.js}"></script>
+</head>
+<body>
+<div>
+    <li><a th:text="' '+${user.nickname}" href="#"></a>
+        <ul>
+            <li><a href="/goods/toList">秒杀商品列表</a></li>
+            <li><a href="/login/toLogin">登出</a></li>
+        </ul>
+    </li>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">个人订单列表</div>
+    <table class="table" id="goodslist">
+        <tr>
+            <td>商品名称</td>
+            <td>付款价格</td>
+            <td>购买数量</td>
+            <td>订单状态</td>
+            <td>订单创建时间</td>
+            <td>订单支付时间</td>
+            <td>详情</td>
+        </tr>
+        <tr th:each="order,ordersStat : ${orderList}">
+            <td th:text="${order.goodsName}"></td>
+            <td th:text="${order.goodsPrice}"></td>
+            <td th:text="${order.goodsCount}"></td>
+            <td>
+                <span th:if="${order.status eq 0}">新建未支付</span>
+                <span th:if="${order.status eq 1}">已经支付</span>
+                <span th:if="${order.status eq 2}">已发货</span>
+                <span th:if="${order.status eq 3}">已收货</span>
+                <span th:if="${order.status eq 4}">已退款</span>
+                <span th:if="${order.status eq 5}">已完成</span>
+            </td>
+            <td th:text="${#dates.format(order.createDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+            <td th:text="${#dates.format(order.payDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+            <td><a th:href="'/userOrder/toDetail/'+${order.id}">详情</a></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

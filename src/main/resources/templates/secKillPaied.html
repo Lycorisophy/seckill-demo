@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+订单状态：<p th:text="${msg}"></p>
+<p>订单支付成功后，将尽快安排发货</p>
+<p>若订单支付失败，请联系管理员</p>
+<p id="content"></p>
+<script>
+    var div = document.querySelector('#content');
+    var time = 15;
+    timer();
+    setInterval(timer, 1000)
+
+    function timer() {
+        if (time == 0) {
+            location.href = "/goods/toList"
+        } else {
+            div.innerHTML = '将在' + time + '秒后跳转到商品页';
+            time--;
+        }
+    }
+</script>
+</body>
+</html>

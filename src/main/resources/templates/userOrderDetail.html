@@ -29,6 +29,18 @@
                            height="200" /></td>
     </tr>
     <tr>
+      <td>商品标题</td>
+      <td th:text="${goods.goodsTitle}" colspan="3"></td>
+    </tr>
+    <tr>
+      <td>商品详情</td>
+      <td th:text="${goods.goodsDetail}" colspan="3"></td>
+    </tr>
+    <tr>
+      <td>商品正常价格</td>
+      <td th:text="${goods.goodsPrice}" colspan="3"></td>
+    </tr>
+    <tr>
       <td>订单价格</td>
       <td colspan="2" th:text="${order.goodsPrice}"></td>
     </tr>
@@ -47,24 +59,15 @@ HH:mm:ss')}" colspan="2"></td>
         <span th:if="${order.status eq 4}">已退款</span>
         <span th:if="${order.status eq 5}">已完成</span>
       </td>
-      <td>
-        <form id="seckillForm1" method="post"
-              action="/seckill/payOrder">
-        <button class="btn btn-primary btn-short" type="submit"
-                id="payButton">立即支付</button>
-          <input type="hidden" name="orderId" th:value="${order.id}"/>
-        </form>
-        <form id="seckillForm2" method="post"
-              action="/seckill/cancleOrder">
-          <button class="btn btn-primary btn-short" type="submit"
-                  id="canclePayButton">取消支付</button>
-          <input type="hidden" name="orderId" th:value="${order.id}"/>
-        </form>
-      </td>
     </tr>
     <tr>
       <td>收货人</td>
       <td colspan="2" th:text="${user.nickname}"></td>
+    </tr>
+    <tr>
+      <td>付款时间</td>
+      <td th:text="${#dates.format(order.payDate, 'yyyy-MM-dd
+HH:mm:ss')}" colspan="2"></td>
     </tr>
     <tr>
       <td>收货人手机号</td>
@@ -78,7 +81,16 @@ HH:mm:ss')}" colspan="2"></td>
     </script>
     <tr>
       <td>收货地址</td>
-      <td colspan="2">上海市浦东区世纪大道</td>
+      <td colspan="2">上海市浦东新区陆家嘴上海国际金融大厦XXX</td>
+    </tr>
+    <tr>
+      <td>购买渠道</td>
+      <td colspan="2">
+        <span th:if="${order.orderChannel eq 1}">电脑</span>
+        <span th:if="${order.orderChannel eq 2}">安卓</span>
+        <span th:if="${order.orderChannel eq 3}">苹果</span>
+        <span th:if="${order.orderChannel eq 4}">其它</span>
+      </td>
     </tr>
   </table>
 </div>
