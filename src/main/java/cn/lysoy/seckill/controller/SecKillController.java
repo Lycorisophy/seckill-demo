@@ -1,5 +1,6 @@
 package cn.lysoy.seckill.controller;
 
+import cn.lysoy.seckill.config.AccessLimit;
 import cn.lysoy.seckill.exception.GlobalException;
 import cn.lysoy.seckill.pojo.Order;
 import cn.lysoy.seckill.pojo.SeckillMessage;
@@ -264,6 +265,7 @@ public class SecKillController implements InitializingBean {
      * @param request
      * @return RespBean
      */
+    @AccessLimit(second=5, maxCount=5, needLogin = true)
     @RequestMapping(value = "/path",method = RequestMethod.GET)
     @ResponseBody
     public RespBean getPath(User user, Long goodsId,String captcha, HttpServletRequest request){
@@ -273,19 +275,6 @@ public class SecKillController implements InitializingBean {
         if (null == captcha){
             return RespBean.error(RespBeanEnum.CAPTCHA_ERROR);
         }
-
-        // 限制用户短时间内请求次数
-        ValueOperations valueOperations = redisTemplate.opsForValue();
-        String uri = request.getRequestURI();
-        Integer count = (Integer) valueOperations.get(uri+":"+user.getId());
-        if(null==count){
-            valueOperations.set(uri+":"+user.getId(), 1, 60, TimeUnit.SECONDS);
-        }else if (count<5) {
-            valueOperations.increment(uri + ":"+user.getId());
-        }else{
-            return RespBean.error(RespBeanEnum.ACCESS_LIMIT);
-        }
-
         boolean check = orderService.checkCaptcha(user,goodsId,captcha);
         if (!check) {
             return RespBean.error(RespBeanEnum.CAPTCHA_ERROR);
