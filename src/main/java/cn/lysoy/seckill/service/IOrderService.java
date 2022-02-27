@@ -63,4 +63,55 @@ public interface IOrderService extends IService<Order> {
      * @return ordersList
      */
     List<Order> listByUser(User user);
+
+    /**
+     * 方法功能描述：根据用户ID和订单ID进行秒杀
+     *
+     * @author: lysoy
+     * @email: s2295938761@163.com
+     * @date: 2022/02/25
+     * @param userId UserId
+     * @param goodsId GoodsId
+     * @param goodsName
+     * @return ordersList
+     */
+    Order seckillByUserIdAndGoodsId(Long userId, Long goodsId, String goodsName);
+
+    /**
+     * 方法功能描述：获取秒杀地址
+     *
+     * @author: lysoy
+     * @email: s2295938761@163.com
+     * @date: 2022/02/27
+     * @param user
+     * @param goodsId
+     * @return 秒杀地址
+     */
+    String createPath(User user, Long goodsId);
+
+    /**
+     * 方法功能描述：校验秒杀地址
+     *
+     * @author: lysoy
+     * @email: s2295938761@163.com
+     * @date: 2022/02/27
+     * @param user
+     * @param goodsId
+     * @param path
+     * @return 秒杀地址是否合规
+     */
+    boolean checkPath(User user, Long goodsId,String path);
+
+    /**
+     * 方法功能描述：验证码校验
+     *
+     * @author: lysoy
+     * @email: s2295938761@163.com
+     * @date: 2022/02/27
+     * @param user
+     * @param goodsId
+     * @param captcha
+     * @return 验证码是否正确
+     */
+    boolean checkCaptcha(User user, Long goodsId, String captcha);
 }

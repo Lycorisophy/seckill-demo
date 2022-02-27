@@ -1,5 +1,6 @@
 package cn.lysoy.seckill.utils;
 
+
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Component;
 

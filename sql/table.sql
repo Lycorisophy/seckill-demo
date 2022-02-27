@@ -59,3 +59,7 @@ create table t_user
     login_count     int default 0 null comment '登陆次数'
 );
 
+-- auto-generated definition
+create unique index seckill_uid__gid
+    on t_seckill_order (user_id, goods_id)
+    comment '用户id+商品id的的唯一索引，解决同一用户秒杀多件商品';

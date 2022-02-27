@@ -14,5 +14,27 @@
     <sql id="Base_Column_List">
         id, user_id, order_id, goods_id
     </sql>
+    <select id="getSeckillOrderVoByOrderId" resultType="cn.lysoy.seckill.vo.SeckillOrderVo">
+        SELECT so.order_id, o.goods_name, goods_img, seckill_price, create_date, status, so.user_id, nickname, delivery_addr_id
+        FROM t_seckill_order AS so
+                 LEFT JOIN t_seckill_goods AS sg ON so.goods_id = sg.id
+                 LEFT JOIN t_order AS o ON so.order_id = o.id
+                 LEFT JOIN t_goods AS g ON so.goods_id = g.id
+                 LEFT JOIN t_user AS u ON so.user_id = u.id
+        <where>
+            <if test="seckillOrderId != null">
+         so.id = #{seckillOrderId};
+            </if>
+        </where>
+    </select>
+    <select id="getByseckillOrderId" resultType="cn.lysoy.seckill.pojo.SeckillOrder">
+        SELECT *
+        FROM t_seckill_order
+        <where>
+            <if test="seckillOrderId != null">
+                order_id = #{seckillOrderId};
+            </if>
+        </where>
+    </select>
 
 </mapper>

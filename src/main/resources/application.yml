@@ -1,4 +1,22 @@
 spring:
+  # 静态资源处理
+  resources:
+    # 启动默认静态处理
+    add-mappings: true
+    cache:
+      cachecontrol:
+        # 缓存响应时间
+        max-age: 3600
+    chain:
+      # 资源链启用缓存
+      cache: true
+      # 启动资源链，默认禁用
+      enabled: true
+      # 启用压缩资源解析，默认禁用
+      compressed: true
+      # 启用h5应用缓存，默认禁用
+      html-application-cache: true
+    static-locations: classpath:/static/
   # thymeleaf配置
   thymeleaf:
     # 关闭缓存
@@ -47,7 +65,38 @@ spring:
       connection-timeout: 30000
       # 测试连接是否可用的查询语句
       connection-test-query: SELECT 1
-
+  # RabbitMq
+  rabbitmq:
+    host: localhost
+    username: guest
+    password: guest
+    # 虚拟主机
+    virtual-host: /
+    port: 5672
+    listener:
+      simple:
+        # 消费者最小数量
+        concurrency: 10
+        # 消费者最大数量
+        max-concurrency: 10
+        # 限制消费者每次能处理消息数量
+        prefetch: 1
+        # 启动时是否默认启动容器
+        auto-startup: true
+        # 被拒绝时是否重新进入队列
+        default-requeue-rejected: true
+    template:
+      retry:
+        # 发布重试，默认false
+        enabled: true
+        # 重试时间
+        initial-interval: 1000ms
+        # 重试最大次数，默认3
+        max-attempts: 3
+        # 重试最大间隔时间
+        max-interval: 10000ms
+        # 重试的间隔乘数
+        multiplier: 1.0
 # mybatis-plus配置
 mybatis-plus:
   # Mapper.xml映射文件

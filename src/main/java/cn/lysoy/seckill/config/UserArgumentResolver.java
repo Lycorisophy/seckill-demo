@@ -45,6 +45,6 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
             return null;
         }
         HttpServletResponse response = webRequest.getNativeResponse(HttpServletResponse.class);
-        return userService.getUser(ticket, request, response);
+        return userService.getUserByCookie(ticket, request, response);
     }
 }

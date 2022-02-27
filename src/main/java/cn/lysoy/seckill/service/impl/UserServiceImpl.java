@@ -18,6 +18,7 @@ import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -58,7 +59,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         // 生成Cookile
         String ticket = UUIDUtil.uuid();
         // 将用户信息存入redis
-        redisTemplate.opsForValue().set("user:"+ticket, user);
+        redisTemplate.opsForValue().set("user:"+ticket, user, 1800, TimeUnit.SECONDS);
         // request.getSession().setAttribute(ticket, user);
         CookieUtil.setCookie(request,response,"userTicket",ticket);
         return RespBean.success();
@@ -74,7 +75,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      * @date: 2022/02/24
      */
     @Override
-    public User getUser(String ticket, HttpServletRequest request, HttpServletResponse response) {
+    public User getUserByCookie(String ticket, HttpServletRequest request, HttpServletResponse response) {
         if (!StringUtils.hasLength(ticket)) {
             return null;
         }
@@ -83,5 +84,33 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             CookieUtil.setCookie(request, response, "userTicket",ticket);
         }
         return user;
+    }
+
+    /**
+     * 方法功能描述：用户更新密码
+     *
+     * @param ticket   用户凭证
+     * @param password 用户想要更新的密码
+     * @param request
+     * @param response
+     * @return RespBean
+     * @author: lysoy
+     * @email: s2295938761@163.com
+     * @date: 2022/02/25
+     */
+    @Override
+    public RespBean updatePassword(String ticket, String password, HttpServletRequest request, HttpServletResponse response) {
+        User user = getUserByCookie(ticket, request, response);
+        if (null != user) {
+            throw new GlobalException(RespBeanEnum.USER_NOT_EXIST);
+        }
+        user.setPassword(MD5Util.inputPassToDBPass(password, user.getSalt()));
+        int result = userMapper.updateById(user);
+        if (1 == result) {
+            // 删除对应的redis
+            redisTemplate.delete("user:"+ticket);
+            return RespBean.success();
+        }
+        return RespBean.error(RespBeanEnum.UPDATE_ERROR);
     }
 }

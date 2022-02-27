@@ -26,7 +26,7 @@ public class RespBean {
     /**
      * 返回对象
      */
-    private Object object;
+    private Object obj;
     
     /**
      * 成功返回结果

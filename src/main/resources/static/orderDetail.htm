@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>订单详情</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <!-- jquery -->
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <!-- bootstrap -->
+  <link rel="stylesheet" type="text/css"
+        href="/bootstrap/css/bootstrap.min.css" />
+  <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js">
+  </script>
+  <!-- layer -->
+  <script type="text/javascript" src="/layer/layer.js"></script>
+  <!-- common.js -->
+  <script type="text/javascript" src="/js/common.js"></script>
+    <script>
+        $(function(){
+            getDetails();
+        });
+
+        function getDetails() {
+            var orderId = g_getQueryString("orderId");
+            $.ajax({
+                url : '/seckillOrder/detail/'+orderId,
+                type : 'GET',
+                success : function(data){
+                    if (data.code==200) {
+                        render(data.obj);
+                    }else {
+                        layer.msg("客户端请求出错");
+                    }
+                },
+                error : function(data) {
+                    layer.msg("客户端请求出错");
+                }
+            });
+        }
+
+        function render(order){
+            $("#goodsName").text(order.goodsName);
+            $("#goodsImg").attr("src", order.goodsImg);
+            $("#seckillPrice").text(order.seckillPrice);
+            $("#createDate").text(new Date(order.createDate).format("yyyy-MM-dd HH:mm:ss"));
+            $("#seckillPrice").text(order.seckillPrice);
+            $("#username").text(order.nickname);
+            $("#phone").text(order.userId);
+            $("#orderId1").attr("value", order.orderId);
+            $("#orderId2").attr("value", order.orderId);
+            var status = order.status;
+            var statusText = "";
+            switch (status){
+                case 0:
+                    statusText = "未支付";
+                    document.getElementById("payButton").style.display = "block";
+                    document.getElementById("canclePayButton").style.display = "block";
+                    break;
+                case 1 :
+                    statusText = "待发货";
+                    document.getElementById("payButton").style.display = "none";
+                    document.getElementById("canclePayButton").style.display = "block";
+                    break;
+                case 2 :
+                    statusText = "已发货";
+                    document.getElementById("payButton").style.display = "none";
+                    document.getElementById("canclePayButton").style.display = "none";
+                    break;
+                case 3 :
+                    statusText = "已收货";
+                    document.getElementById("payButton").style.display = "none";
+                    document.getElementById("canclePayButton").style.display = "none";
+                    break;
+                case 4 :
+                    statusText = "已退款";
+                    document.getElementById("payButton").style.display = "none";
+                    document.getElementById("canclePayButton").style.display = "none";
+                    break;
+                case 5 :
+                    statusText = "已完成";
+                    document.getElementById("payButton").style.display = "none";
+                    document.getElementById("canclePayButton").style.display = "none";
+                    break;
+            }
+            $("#status").text(statusText);
+        }
+    </script>
+</head>
+<body>
+<div class="panel panel-default">
+  <div class="panel-heading">秒杀订单详情</div>
+  <table class="table" id="order">
+    <tr>
+      <td>商品名称</td>
+      <td id="goodsName" colspan="3"></td>
+    </tr>
+    <tr>
+      <td>商品图片</td>
+      <td colspan="2"><img id="goodsImg" width="200"
+                           height="200" /></td>
+    </tr>
+    <tr>
+      <td>秒杀价格</td>
+      <td colspan="2" id = "seckillPrice"></td>
+    </tr>
+    <tr>
+      <td>下单时间</td>
+      <td id="createDate" colspan="2"></td>
+    </tr>
+    <tr>
+      <td>订单状态</td>
+      <td colspan="2" id = "status"></td>
+      <td>
+        <form id="seckillForm1" method="post"
+              action="/seckill/payOrder">
+        <button class="btn btn-primary btn-short" type="submit"
+                id="payButton" style.display = "none">立即支付</button>
+          <input type="hidden" name="orderId" id="orderId1"/>
+        </form>
+        <form id="seckillForm2" method="post"
+              action="/seckill/cancleOrder">
+          <button class="btn btn-primary btn-short" type="submit"
+                  id="canclePayButton" style.display = "none">取消支付</button>
+          <input type="hidden" name="orderId" id="orderId2"/>
+        </form>
+      </td>
+    </tr>
+    <tr>
+      <td>收货人</td>
+      <td colspan="2" id="username"></td>
+    </tr>
+    <tr>
+      <td>收货人手机号</td>
+      <td colspan="2" id = "phone"></td>
+    </tr>
+    <tr>
+      <td>收货地址</td>
+      <td colspan="2">上海市浦东区世纪大道</td>
+    </tr>
+  </table>
+</div>
+</body>
+</html>
