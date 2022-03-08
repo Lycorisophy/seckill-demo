@@ -7,9 +7,11 @@ import cn.lysoy.seckill.vo.DetailVo;
 import cn.lysoy.seckill.vo.GoodsVo;
 import cn.lysoy.seckill.vo.RespBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,7 +33,7 @@ import java.util.concurrent.TimeUnit;
  * @email: s2295938761@163.com
  * @date: 2022/02/23
  */
-@Component
+@Controller
 @RequestMapping("/goods")
 public class GoodsController {
     @Autowired

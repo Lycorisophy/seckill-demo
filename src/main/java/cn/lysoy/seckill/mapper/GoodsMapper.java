@@ -3,6 +3,7 @@ package cn.lysoy.seckill.mapper;
 import cn.lysoy.seckill.pojo.Goods;
 import cn.lysoy.seckill.vo.GoodsVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
  * @author LySoY
  * @since 2022-02-24
  */
+@Mapper
 public interface GoodsMapper extends BaseMapper<Goods> {
 
     /**

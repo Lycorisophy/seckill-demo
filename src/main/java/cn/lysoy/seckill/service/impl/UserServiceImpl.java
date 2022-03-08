@@ -3,6 +3,7 @@ package cn.lysoy.seckill.service.impl;
 import cn.lysoy.seckill.exception.GlobalException;
 import cn.lysoy.seckill.mapper.UserMapper;
 import cn.lysoy.seckill.pojo.User;
+import cn.lysoy.seckill.repository.UserRepository;
 import cn.lysoy.seckill.service.IUserService;
 import cn.lysoy.seckill.utils.CookieUtil;
 import cn.lysoy.seckill.utils.MD5Util;
@@ -18,6 +19,7 @@ import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -31,9 +33,11 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
     @Autowired
-    UserMapper userMapper;
+    private UserMapper userMapper;
     @Autowired
-    RedisTemplate redisTemplate;
+    private RedisTemplate redisTemplate;
+    @Autowired
+    private UserRepository userRepository;
     /**
      * 登陆
      *
@@ -62,6 +66,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         redisTemplate.opsForValue().set("user:"+ticket, user, 1800, TimeUnit.SECONDS);
         // request.getSession().setAttribute(ticket, user);
         CookieUtil.setCookie(request,response,"userTicket",ticket);
+        userRepository.save(user);
         return RespBean.success();
     }
 

@@ -8,6 +8,7 @@ import cn.lysoy.seckill.service.IOrderService;
 import cn.lysoy.seckill.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,7 @@ import java.util.List;
  * @email: s2295938761@163.com
  * @date: 2022/02/25
  */
-@Component
+@Controller
 @RequestMapping("/userOrder")
 public class UserOrderController {
     @Autowired

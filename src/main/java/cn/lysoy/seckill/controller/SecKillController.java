@@ -21,15 +21,14 @@ import com.wf.captcha.base.Captcha;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,7 +46,7 @@ import java.util.concurrent.TimeUnit;
  * @email: s2295938761@163.com
  * @date: 2022/02/24
  */
-@Component
+@Controller
 @RequestMapping("/seckill")
 @Slf4j
 public class SecKillController implements InitializingBean {
@@ -76,7 +75,7 @@ public class SecKillController implements InitializingBean {
      */
     @RequestMapping(value="/{path}/doSeckill", method = RequestMethod.POST)
     @ResponseBody
-    public RespBean doSeckill(@PathVariable String path, User user, Long goodsId) {
+    public RespBean doSeckill(@PathVariable String path, User user, @RequestBody Long goodsId) {
         if (user == null) {
             return RespBean.error(RespBeanEnum.SESSION_ERROR);
         }
