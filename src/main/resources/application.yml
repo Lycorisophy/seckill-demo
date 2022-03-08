@@ -1,22 +1,5 @@
+
 spring:
-  # 静态资源处理
-  resources:
-    # 启动默认静态处理
-    add-mappings: true
-    cache:
-      cachecontrol:
-        # 缓存响应时间
-        max-age: 3600
-    chain:
-      # 资源链启用缓存
-      cache: true
-      # 启动资源链，默认禁用
-      enabled: true
-      # 启用压缩资源解析，默认禁用
-      compressed: true
-      # 启用h5应用缓存，默认禁用
-      html-application-cache: true
-    static-locations: classpath:/static/
   # thymeleaf配置
   thymeleaf:
     # 关闭缓存
@@ -41,71 +24,32 @@ spring:
         max-idle: 10
         # 最小空闲连接
         min-idle: 1
-  # 数据源配置
-  datasource:
-    # Mysql8.X驱动
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/seckill?useUnicode=true&characterEncoding=UTF-8&serverTimeZone=Asia/Shanghai
-    username: root
-    password: root
-    hikari:
-      # 连接池名
-      pool-name: Hikari
-      # 最小空闲连接数
-      minimum-idle: 6
-      # 空闲连接存活最大时间（默认600000（10分钟））
-      idle-timeout: 300000
-      # 最大连接数（默认10）
-      maximum-pool-size: 12
-      # 从连接池返回的链接自动提交
-      auto-commit: true
-      # 最大存活时间，0表示永久存活
-      max-lifetime: 1800000
-      # 连接超时时间
-      connection-timeout: 30000
-      # 测试连接是否可用的查询语句
-      connection-test-query: SELECT 1
-  # RabbitMq
-  rabbitmq:
-    host: localhost
-    username: guest
-    password: guest
-    # 虚拟主机
-    virtual-host: /
-    port: 5672
-    listener:
-      simple:
-        # 消费者最小数量
-        concurrency: 10
-        # 消费者最大数量
-        max-concurrency: 10
-        # 限制消费者每次能处理消息数量
-        prefetch: 1
-        # 启动时是否默认启动容器
-        auto-startup: true
-        # 被拒绝时是否重新进入队列
-        default-requeue-rejected: true
-    template:
-      retry:
-        # 发布重试，默认false
+  web:
+    resources:
+      cache:
+        cachecontrol:
+          max-age: 3600
+      chain:
+        # 资源链启用缓存
+        cache: true
+        # 启动资源链，默认禁用
         enabled: true
-        # 重试时间
-        initial-interval: 1000ms
-        # 重试最大次数，默认3
-        max-attempts: 3
-        # 重试最大间隔时间
-        max-interval: 10000ms
-        # 重试的间隔乘数
-        multiplier: 1.0
-# mybatis-plus配置
-mybatis-plus:
-  # Mapper.xml映射文件
-  mapper-locations:
-    - classpath*:/mapper/*Mapper.xml
-  # Mybatis-plus数据返回类型别名
-  type-aliases-package: cn.lysoy.seckill.pojo
+        # 启用压缩资源解析，默认禁用
+        compressed: true
+      add-mappings: true
+      static-locations: classpath:/static/
 
 # SQL打印
 logging:
   level:
     cn.lysoy.seckill.mapper: debug
+
+netty:
+  #监听websocket连接的端口
+  port: 9123
+  #websocket连接地址  （此处要用电脑的ip,不然手机访问会出现问题）
+  ws: ws://localhost:${netty.port}/ws
+
+
+server:
+  port: 8080

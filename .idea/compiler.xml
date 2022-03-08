@@ -7,16 +7,16 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="seckill" />
+        <module name="chatting" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="seckill" target="1.8" />
+      <module name="chatting" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="seckill" options="-parameters" />
+      <module name="chatting" options="-parameters" />
     </option>
   </component>
 </project>
